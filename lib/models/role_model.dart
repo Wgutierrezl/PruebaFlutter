@@ -33,4 +33,35 @@ class RoleCreate{
       description: json['description'],
     );
   }
+
+  Map<String, dynamic> toJson(){
+    return {
+      'name':name,
+      'description':description
+    };
+  }
+}
+
+class RoleUpdated{
+  final String? name;
+  final String? description;
+
+  RoleUpdated({
+    this.name,
+    this.description,
+  });
+
+  factory RoleUpdated.fromJson(Map<String, dynamic> json){
+    return RoleUpdated(
+      name:json['name'],
+      description: json['description']
+    );
+  }
+
+  Map<String, dynamic> toJson(){
+    return {
+      'name':name,
+      'description':description
+    };
+  }
 }

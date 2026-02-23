@@ -60,3 +60,37 @@ class UserCreate {
     };
   }
 }
+
+class UserUpdate{
+  final String? username;
+  final int? roleId;
+  final String? email;
+  final String? password;
+
+  UserUpdate({
+    this.username,
+    this.roleId,
+    this.email,
+    this.password
+  });
+
+  factory UserUpdate.fromJson(Map<String,dynamic> json){
+    return UserUpdate(
+      username: json['username'],
+      roleId: json['roleId'],
+      email:json['email'],
+      password: json['password']
+    ); 
+  }
+
+  Map<String, dynamic> toJson(){
+    return {
+      'username':username,
+      'roleId':roleId,
+      'email':email,
+      'password':password
+    };
+  }
+
+
+}

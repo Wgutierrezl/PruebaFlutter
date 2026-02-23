@@ -4,6 +4,7 @@ import 'package:flutter_auth_app/core/api_client.dart';
 import 'package:flutter_auth_app/models/user_model.dart';
 
 class UserService {
+
   static Future<User> getProfile() async {
     final response=await ApiClient.get('/users/profile');
 
@@ -44,4 +45,29 @@ class UserService {
     throw Exception('Error al obtener al usuario');
 
   }
+
+  static Future<bool> deleteUserById(int id) async {
+    final response=await ApiClient.delete('/users/deleteUser/$id');
+
+    if(response.statusCode==200){
+      return true;
+    } else if(response.statusCode==404){
+      throw Exception('No existe el usuario que deseas eliminar'); 
+    }else if(response.statusCode==401){
+      throw Exception('No estas autenticado');
+    }
+
+    throw Exception('No hemos logrado eliminar a el usuario');
+  }
+
+  static Future<User> updateUserProfile(UserUpdate userData) async {
+    final response=await ApiClient.put('/users/updateProfile', body: userData.toJson());
+    if(response.statusCode==200){
+      final data=jsonDecode(response.body);
+      return User.fromJson(data);
+    }else{
+      throw Exception('no hemos logrado actualizar tu perfil');
+    }
+  }
+
 }
