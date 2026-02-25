@@ -15,7 +15,11 @@ class AuthProvider extends ChangeNotifier {
 
     try {
       session = await AuthService.login(log);
-    } finally {
+      print('✅ Login exitoso: ${session?.token}');
+      print('✅ Usuario: ${session?.userId}'); // si tu SessionDTO tiene user
+    } catch (e){
+      print('❌ Error en login: $e'); // 👈 muy importante, captura el error
+    }finally {
       isLoading = false;
       notifyListeners();
     }

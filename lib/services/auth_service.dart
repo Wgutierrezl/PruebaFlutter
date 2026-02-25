@@ -13,6 +13,9 @@ class AuthService{
       body: login.toJson(),
     );
 
+    print('📥 Status: ${response.statusCode}'); // código de respuesta
+    print('📥 Body: ${response.body}');          // lo que te devuelve la API
+
     if (response.statusCode == 200) {
       final data = jsonDecode(response.body);
 
