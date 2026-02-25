@@ -12,9 +12,16 @@ class RegisterPage extends StatefulWidget {
 
 class _RegisterPageState extends State<RegisterPage> {
   final nameCtrl = TextEditingController();
-  final roleCtrl = TextEditingController(); // corregido
   final emailCtrl = TextEditingController();
   final passCtrl = TextEditingController();
+
+  @override
+  void dispose() {
+    nameCtrl.dispose();
+    emailCtrl.dispose();
+    passCtrl.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,11 +38,6 @@ class _RegisterPageState extends State<RegisterPage> {
               decoration: const InputDecoration(labelText: 'Username'),
             ),
             TextField(
-              controller: roleCtrl,
-              keyboardType: TextInputType.number, // roleId es int
-              decoration: const InputDecoration(labelText: 'Role ID'),
-            ),
-            TextField(
               controller: emailCtrl,
               decoration: const InputDecoration(labelText: 'Email'),
             ),
@@ -44,12 +46,24 @@ class _RegisterPageState extends State<RegisterPage> {
               obscureText: true,
               decoration: const InputDecoration(labelText: 'Password'),
             ),
+
+            // ── Rol fijo, solo informativo ──
+            const SizedBox(height: 12),
+            const TextField(
+              enabled: false, // ← no se puede tocar
+              decoration: InputDecoration(
+                labelText: 'Rol',
+                hintText: 'Employee',
+                prefixIcon: Icon(Icons.badge),
+              ),
+            ),
+
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: auth.isLoading ? null : () async {
                 final dto = UserCreate(
-                  username: nameCtrl.text,           // corregido: name -> username
-                  roleId: int.tryParse(roleCtrl.text) ?? 1, // corregido: campo requerido
+                  username: nameCtrl.text,
+                  roleId: 2, // ← siempre Employee
                   email: emailCtrl.text,
                   password: passCtrl.text,
                 );
