@@ -23,6 +23,7 @@ class UserService {
 
   static Future<List<User>> getAllUsers() async {
     final response=await ApiClient.get('/users/getAllUsers');
+    print('users ${response}');
 
     if(response.statusCode==200){
       final List<dynamic> data= jsonDecode(response.body);
