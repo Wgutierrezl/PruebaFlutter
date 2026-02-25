@@ -20,10 +20,19 @@ class AuthService{
       final data = jsonDecode(response.body);
 
       final session = SessionDTO.fromJson(data);
+      final token = data['token']
+        .toString()
+        .replaceAll('\n', '')
+        .replaceAll(' ', '');
 
-      await TokenStorage.save(session.token);
+        print('token ${token}');
 
+      await TokenStorage.save(token);
+
+      final saved=await TokenStorage.get();
+      print('token guardado ${saved}');
       return session;
+
     } else {
       throw Exception('Credenciales inválidas');
     }
